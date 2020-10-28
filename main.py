@@ -1,14 +1,34 @@
-from orakarik.scrape.tweet_scrape import SnTweetScrape
+import argparse
 from src.server_twitter import serve
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('-n', '--service-name', dest='service_name',
+                        type=lambda x: str(x) if str(x) != '' else parser.error('--service-name N must be string'),
+                        metavar='N',
+                        help='Only return the first N results')
+    group = parser.add_mutually_exclusive_group(required=False)
+    group.add_argument('-p', '--port', dest='port',
+                       type=lambda x: int(x) if int(x) > 1 else parser.error('--port N must required'),
+                       metavar='N', help='Port')
+
+    args = parser.parse_args()
+
+    if not args.service_name:
+        raise RuntimeError('Error: no service_name specified')
+    if not args.port:
+        raise RuntimeError('Error: no port specified')
+
+    return args
+
+
+def main():
+    args = parse_args()
+    if args.service_name == 'twitter':
+        serve(args.port)
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    serve()
-    # since = "2020-10-11"
-    # until = "2020-10-26"
-    # ob = SnTweetScrape(since, until)
-    # data = ob.tweetSearch("@hrdbacot")
-    # print(data)
-
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()
