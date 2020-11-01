@@ -38,11 +38,11 @@ class TwitterStream(pb2_grpc.twitterServicer):
         if search_type == "account":
             items = scrape.tweetAccount(request.keyword.replace("@", ""))
         elif search_type == "mention":
-            items = scrape.tweetSearch(request.keyword)
+            items = scrape.tweetSearch(request.keyword, lang="id")
         elif search_type == "hashtag":
-            items = scrape.tweetHashtag(request.keyword.replace("#", ""))
+            items = scrape.tweetHashtag(request.keyword.replace("#", ""), lang="id")
         else:
-            items = scrape.tweetSearch(request.keyword)
+            items = scrape.tweetSearch(request.keyword, lang="id")
 
         result['items'] = items
         return pb2.twitterResponse(**result)
