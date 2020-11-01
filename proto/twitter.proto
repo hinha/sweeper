@@ -26,7 +26,7 @@ message Item {
   int32 user_favourites_count = 19;
   int32 user_listed_count = 20;
   int32 user_media_count = 21;
-  int32 user_location = 22;
+  string user_location = 22;
   bool user_protected = 23;
   string user_link_url = 24;
   string user_profile_image_url = 25;
@@ -34,7 +34,7 @@ message Item {
   int32 retweet_count = 27;
   int32 like_count = 28;
   int32 quote_count = 29;
-  int32 conversation_id = 30;
+  int64 conversation_id = 30;
   string device = 31;
   string lang = 32;
   repeated mediaItem media = 33;
@@ -43,6 +43,16 @@ message Item {
   int64 engagement = 36;
   int64 potential_reach = 37;
   float engagement_rate = 38;
+  string place_type = 39;
+  string place_name = 40;
+  string country_code = 41;
+  string bounding_box_type = 42;
+  repeated BoundingBoxCoordinates bounding_box_coordinates = 43;
+}
+
+message BoundingBoxCoordinates {
+  float longitude = 1;
+  float latitude = 2;
 }
 
 message mediaItem {
@@ -53,11 +63,14 @@ message mediaItem {
 message Source {
   string preview_url = 1;
   string full_url = 2;
+  string thumbnail_url = 3;
+  string duration = 4;
 }
 
 message Mention {
-  string text = 1;
-  string display_name = 2;
+  int64 id = 1;
+  string text = 2;
+  string display_name = 3;
 }
 
 message Hashtag {
