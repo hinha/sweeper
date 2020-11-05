@@ -6,7 +6,7 @@ from src import twitter_pb2_grpc as pb2_grpc
 
 
 def run_twitter():
-    channel = grpc.insecure_channel("[::]:50055")
+    channel = grpc.insecure_channel("0.0.0.0:50055")
     stub = pb2_grpc.twitterStub(channel)
 
     payload = {

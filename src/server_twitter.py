@@ -70,7 +70,7 @@ class TwitterStream(pb2_grpc.twitterServicer):
 def serve(ports):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=20))
     pb2_grpc.add_twitterServicer_to_server(TwitterStream(), server)
-    port = server.add_insecure_port(f'[::]:{ports}')
+    port = server.add_insecure_port(f'0.0.0.0:{ports}')
     print("port at {}".format(port))
     server.start()
     server.wait_for_termination()
