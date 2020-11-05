@@ -42,7 +42,9 @@ class TwitterStream(pb2_grpc.twitterServicer):
         result['updateAt'] = filteredO['step']
 
         try:
-            scrape = SnTweetScrape(filteredO['since'], filteredO['until'], 1000)
+            scrape = SnTweetScrape(filteredO['since'], filteredO['until'], filteredO['count'],
+                                   proxy=True,
+                                   proxy_dict=proxies)
             if searchType == "account":
                 items = scrape.tweetAccount(request.keyword.replace("@", ""), lang="id")
             elif searchType == "mention":
