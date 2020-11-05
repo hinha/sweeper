@@ -10,14 +10,18 @@ def run_twitter():
     stub = pb2_grpc.twitterStub(channel)
 
     payload = {
-        "keyword": "@hrdbacot",
-        "search_type": "mention",
-        "since": "2020-10-11",
-        "until": "2020-10-26"
+        "keyword": "@detikcom",
+        "search_type": "account",
+        "since": "2020-10-26",
+        "until": "2020-10-27"
     }
 
     request = ParseDict(payload, pb.twitterRequest())
     stub.StreamRequest(request)
+
+
+def nikParse():
+    pass
 
 
 
