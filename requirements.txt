@@ -1,3 +1,7 @@
 grpcio==1.29.0
 grpcio-tools==1.29.0
 grpc-proto-validator==0.1.2.dev0
+
+Sastrawi==1.0.1
+beautifulsoup4===4.8.2
+cached-property===1.5.2
