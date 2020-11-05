@@ -4,6 +4,7 @@ grpcio-tools==1.29.0
 grpc-proto-validator==0.1.2.dev0
 validators==0.18.1
 numpy==1.16.0
+requests==2.22.0
 
 Sastrawi==1.0.1
 beautifulsoup4===4.8.2
