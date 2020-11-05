@@ -4,6 +4,7 @@ services:
   rpc-twitter:
     tty: true
     image: rpc-twitter:1.0
+    network_mode: bridge
     restart: unless-stopped
     command: [ "make", "run-twitter"]
     ports:
