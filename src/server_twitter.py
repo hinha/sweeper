@@ -6,6 +6,7 @@ import validators
 from . import twitter_pb2 as pb2
 from . import twitter_pb2_grpc as pb2_grpc
 from orakarik.scrape.tweet_scrape import SnTweetScrape
+from .utils import date as date_parser
 
 
 class TwitterStream(pb2_grpc.twitterServicer):
@@ -34,18 +35,34 @@ class TwitterStream(pb2_grpc.twitterServicer):
             result['message'] = f'[keyword, search_type, since, until] required'
             return pb2.twitterResponse(**result)
 
-        scrape = SnTweetScrape(request.since, request.until)
-        if search_type == "account":
-            items = scrape.tweetAccount(request.keyword.replace("@", ""))
-        elif search_type == "mention":
-            items = scrape.tweetSearch(request.keyword, lang="id")
-        elif search_type == "hashtag":
-            items = scrape.tweetHashtag(request.keyword.replace("#", ""), lang="id")
-        else:
-            items = scrape.tweetSearch(request.keyword, lang="id")
+        searchType = str(request.search_type)
 
-        result['items'] = items
-        return pb2.twitterResponse(**result)
+        filtered = date_parser.DateSettings(request.since, request.until)
+        filteredO = filtered.get_date()
+        result['updateAt'] = filteredO['step']
+
+        try:
+            scrape = SnTweetScrape(filteredO['since'], filteredO['until'], 1000)
+            if searchType == "account":
+                items = scrape.tweetAccount(request.keyword.replace("@", ""), lang="id")
+            elif searchType == "mention":
+                text = request.keyword
+                if "@" not in text:
+                    text = "@" + text
+
+                items = scrape.tweetSearch(text, lang="id")
+            elif searchType == "hashtag":
+                text = request.keyword
+                if "#" in request.keyword:
+                    text = request.keyword.replace("#", "")
+                items = scrape.tweetHashtag(text, lang="id")
+            else:
+                items = scrape.tweetSearch(request.keyword, lang="id")
+
+            return pb2.twitterResponse(message=result['message'], updateAt=result['updateAt'], items=items)
+        except TypeError as e:
+            print(e)
+            return pb2.twitterResponse(message='error', updateAt='', items=[])
 
 
 def serve(ports):
