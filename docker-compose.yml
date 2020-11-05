@@ -6,3 +6,5 @@ services:
     image: rpc-twitter:1.0
     restart: unless-stopped
     command: [ "make", "run-twitter"]
+    ports:
+    - '50055:50055'
