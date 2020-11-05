@@ -1,6 +1,7 @@
 grpcio==1.29.0
 grpcio-tools==1.29.0
 grpc-proto-validator==0.1.2.dev0
+validators==0.18.1
 
 Sastrawi==1.0.1
 beautifulsoup4===4.8.2
