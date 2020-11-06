@@ -41,9 +41,21 @@ class TwitterStream(pb2_grpc.twitterServicer):
         filteredO = filtered.get_date()
         result['updateAt'] = filteredO['step']
 
+        with_proxy = True
+        if not request.proxy or request.proxy == "":
+            with_proxy = False
+
+        proxy_host = "proxy.crawlera.com"
+        proxy_port = "8010"
+        proxy_auth = f"{request.proxy}:"
+        proxies = {
+            "http": "http://{}@{}:{}/".format(proxy_auth, proxy_host, proxy_port),
+            "https": "https://{}@{}:{}/".format(proxy_auth, proxy_host, proxy_port),
+        }
+
         try:
-            scrape = SnTweetScrape(filteredO['since'], filteredO['until'], filteredO['count'],
-                                   proxy=True,
+            scrape = SnTweetScrape(filteredO['since'], filteredO['until'], 10,
+                                   proxy=with_proxy,
                                    proxy_dict=proxies)
             if searchType == "account":
                 items = scrape.tweetAccount(request.keyword.replace("@", ""), lang="id")
@@ -68,7 +80,7 @@ class TwitterStream(pb2_grpc.twitterServicer):
 
 
 def serve(ports):
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=20))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pb2_grpc.add_twitterServicer_to_server(TwitterStream(), server)
     port = server.add_insecure_port(f'0.0.0.0:{ports}')
     print("port at {}".format(port))

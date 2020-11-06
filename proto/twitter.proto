@@ -87,6 +87,7 @@ message twitterRequest {
   string search_type = 2 [(validator.field) = {string_not_empty: True}];
   string since = 3 [(validator.field) = {string_not_empty: True}];
   string until = 4 [(validator.field) = {string_not_empty: True}];
+  string proxy = 5;
 }
 
 message twitterResponse {
