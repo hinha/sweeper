@@ -54,7 +54,7 @@ class TwitterStream(pb2_grpc.twitterServicer):
         }
 
         try:
-            scrape = SnTweetScrape(filteredO['since'], filteredO['until'], 10,
+            scrape = SnTweetScrape(filteredO['since'], filteredO['until'], filteredO['count'],
                                    proxy=with_proxy,
                                    proxy_dict=proxies)
             if searchType == "account":
