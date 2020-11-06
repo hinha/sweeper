@@ -1,4 +1,6 @@
+sanic==19.9.0
 pytz==2019.3
+grpclib==0.4.1
 grpcio==1.29.0
 grpcio-tools==1.29.0
 grpc-proto-validator==0.1.2.dev0
