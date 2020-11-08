@@ -62,7 +62,6 @@ class InstagramStream(pb2_grpc.instagramServicer):
             else:
                 items = scrape.hashtag(request.keyword)
 
-            print(filteredO)
             return pb2.instagramResponse(message=result['message'], updateAt=result['updateAt'], items=items)
         except TypeError as e:
             print(e)
