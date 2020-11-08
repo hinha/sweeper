@@ -1,5 +1,5 @@
 import argparse
-from src.server_twitter import serve
+from src import server_twitter, server_instagram
 from src.api import rest_api
 
 
@@ -27,7 +27,9 @@ def parse_args():
 def main():
     args = parse_args()
     if args.service_name == 'twitter':
-        serve(args.port)
+        server_twitter.serve(args.port)
+    if args.service_name == "instagram":
+        server_instagram.serve(args.port)
     if args.init == "twitter":
         if not args.worker:
             args.worker = 1

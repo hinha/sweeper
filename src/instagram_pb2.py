@@ -11,7 +11,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-import validator_pb2 as validator__pb2
+import grpc_proto_validator.validator_pb2 as validator__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(

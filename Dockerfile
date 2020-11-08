@@ -9,4 +9,5 @@ ADD . /app
 RUN pip install -r requirements.txt
 
 EXPOSE 50081
+EXPOSE 50082
 EXPOSE 50181

@@ -19,11 +19,11 @@ class DateSettings(object):
                 mapObj['step'] = datetime.now().strftime("%Y-%m-%d")
                 mapObj['length'] = lengthDate
             else:
-                mapObj['since'] = (datetime.strptime(dateStr, "%Y-%m-%d") + timedelta(weeks=lengthDate)).strftime(
+                mapObj['since'] = (datetime.strptime(dateStr, "%Y-%m-%d") - timedelta(days=lengthDate)).strftime(
                     "%Y-%m-%d")
                 mapObj['until'] = datetime.now().strftime("%Y-%m-%d")
                 mapObj['count'] = limits
-                mapObj['step'] = (datetime.strptime(dateStr, "%Y-%m-%d") + timedelta(weeks=lengthDate)).strftime(
+                mapObj['step'] = (datetime.strptime(dateStr, "%Y-%m-%d") - timedelta(days=lengthDate + 1)).strftime(
                     "%Y-%m-%d")
                 mapObj['length'] = lengthDate
         else:
