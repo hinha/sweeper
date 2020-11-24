@@ -9,6 +9,16 @@ services:
     - '50081:50081'
     command: [ "make", "run-twitter"]
 
+  rpc-instagram:
+    tty: true
+    image: rpc-instagram:1.0
+    restart: unless-stopped
+    environment:
+      - REDIS_HOST=localhost
+    ports:
+      - '50082:50082'
+    command: [ "make", "run-instagram" ]
+
   api-rpc-twitter:
     image: rpc-twitter:1.0
     restart: always
