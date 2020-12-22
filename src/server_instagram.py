@@ -54,6 +54,7 @@ class InstagramStream(pb2_grpc.instagramServicer):
             "https": "https://{}@{}:{}/".format(proxy_auth, proxy_host, proxy_port),
         }
 
+        # filter
         if filteredO["count"] < 500:
             filteredO["count"] += 1000
         else:
