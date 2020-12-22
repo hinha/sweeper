@@ -19,13 +19,13 @@ services:
       - '50082:50082'
     command: [ "make", "run-instagram" ]
 
-  api-rpc-twitter:
-    image: rpc-twitter:1.0
-    restart: always
-    environment:
-      - SANIC_NO_UVLOOP=true
-      - SANIC_NO_UJSON=true
-      - RPC_HOST=172.17.0.1
-    ports:
-    - '50181:50181'
-    command: ["make", "run-rest_twitter"]
+#  api-rpc-twitter:
+#    image: rpc-twitter:1.0
+#    restart: always
+#    environment:
+#      - SANIC_NO_UVLOOP=true
+#      - SANIC_NO_UJSON=true
+#      - RPC_HOST=172.17.0.1
+#    ports:
+#    - '50181:50181'
+#    command: ["make", "run-rest_twitter"]

@@ -53,8 +53,14 @@ class InstagramStream(pb2_grpc.instagramServicer):
             "http": "http://{}@{}:{}/".format(proxy_auth, proxy_host, proxy_port),
             "https": "https://{}@{}:{}/".format(proxy_auth, proxy_host, proxy_port),
         }
+
+        if filteredO["count"] < 500:
+            filteredO["count"] += 1000
+        else:
+            filteredO["count"] += 300
+
         try:
-            scrape = SnInstagramScraper(filteredO['since'], filteredO['until'], filteredO['count'],
+            scrape = SnInstagramScraper(filteredO['since'], filteredO['until'], filteredO['count'] + 200,
                                         proxy=with_proxy,
                                         proxy_dict=proxies)
             if searchType == "account":
