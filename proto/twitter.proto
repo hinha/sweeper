@@ -80,6 +80,7 @@ message Hashtag {
 
 service twitter {
   rpc StreamRequest (twitterRequest) returns (twitterResponse) {};
+//  rpc StreamRequestSummary (twitterResponse) returns () {};
 }
 
 message twitterRequest {
